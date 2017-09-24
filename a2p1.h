@@ -7,7 +7,6 @@
   */
   
 #include <iostream>
-#include <string>
 #include <iomanip>
 
 using namespace std;
@@ -27,54 +26,55 @@ class Employee {
 	public:
 		/**
 		  * Constructor
+		  * Initializes an Employee object and sets all data members
 		  * @param[in] _mFName 	Employee first name
 		  * @param[in] _mGName	Employee second name
 		  * @param[in] _mIRD		Employee IRD number
 		  */
 		Employee(const string &_mFName, const string &_mGName, const string &_mIRD);
 		/**
-		  * Destructor 
+		  * Destructor
+		  * Deconstructs initialized Employee object
 		  */
 		virtual ~Employee();
 		/**
-		  * mFName Accessor
 		  * Returns mFName
+		  * @return mFName
 		  */
 		const string &getMFName() const;
 		/**
-		  * mGName Accessor
-		  * Returns mGName
+		  * Returns mGName 
+		  * @return mGName
 		  */
 		const string &getMGName() const;
 		/**
-		  * mIRD Accessor
-		  * Returns mIRD
+		  * Returns mIRD 
+		  * @return mIRD
 		  */
 		const string &getMIRD() const;
 		/**
-		  * mFName Mutator
-		  * Sets mFName
+		  * Mutates mFName 
+		  * @param[in] _mFName Assigns mFName with the value _mFName
 		  */
 		void setMFName(const string &_mFName);
 		/**
-		  * mGName Mutator
-		  * Sets mGName
+		  * Mutates mGName
+		  * @param[in] _mGName Assigns mGName with the value _mGName
 		  */
 		void setMGName(const string &_mGName);
 		/**
-		  * mIRD Mutator
-		  * Sets mIRD
+		  * Mutates mIRD
+		  * @param[in] _mIRD Assigns mIRD with the value _mIRD
 		  */
 		void setMIRD(const string &_mIRD);
 		/**
-		  * Virtual Member Function: print
-		  * @param[in] _cout	 The cout stream that, when returned, displays the IRD number, first and last 
-		  * of the employee
+		  * Displays the mIRD, mFName and mGName data members for the Employee object
+		  * @param[in] _cout	 The stream used to display the data members
 		  */
 		virtual void print(ostream &_cout);
 		/**
-		  * Virtual Member Function: getNetMonthlyPay
-		  * Returns employee monthly income
+		  * Calculates the monthly net wages for the Employee object
+		  * @return total monthly net wages
 		  */
 		virtual double getNetMonthlyPay() = 0;
 };
@@ -111,9 +111,9 @@ void Employee::setMIRD(const string &_mIRD) {
 }
 //---------------------------------------------------------------
 void Employee::print(ostream &_cout) {
-	_cout << setw(5) << getMIRD();
-	_cout << setw(5) << getMFName();
-	_cout << setw(5) << getMGName();
+	_cout << setw(20) << left << getMIRD();
+	_cout << setw(15) << left << getMFName();
+	_cout << setw(20) << left << getMGName();
 }
 //---------------------------------------------------------------
 //=================================================================================
@@ -126,6 +126,7 @@ class SalaryEmp : public Employee {
 	public:
 		/**
 		  * Constructor
+		  * Initializes an SalaryEmp object and sets all data members
 		  * @param[in] _mFName 	Employee first name
 		  * @param[in] _mGName	Employee second name
 		  * @param[in] _mIRD		Employee IRD number
@@ -133,15 +134,15 @@ class SalaryEmp : public Employee {
 		  */
 		SalaryEmp(const string &_nFName, const string &_mGName, const string &_mIRD, double _mAPay);
 		/**
-		  * mAPay Accessor
-		  * Returns mAPay
+		  * Returns mAPay 
+		  * @return mAPay
 		  */
 		double getMAPay() const;
 		/**
-		  * mAPay Mutator
-		  * Sets mAPay
+		  * Mutates mAPay
+		  * @param[in] _mAPay Assigns mAPay with the value _mAPay
 		  */
-		void setMAPay(double mAPay);
+		void setMAPay(double _mAPay);
 };
 //---------------------------------------------------------------
 SalaryEmp::SalaryEmp(const string &_nFName, const string &_mGName, const string &_mIRD, double _mAPay)
@@ -159,13 +160,14 @@ void SalaryEmp::setMAPay(double _mAPay) {
 /**
  * A class representing a Professor
  */
-class Prof : public SalaryEmp {
+class Prof final : public SalaryEmp {
 	private:
 		int mDaysLeave; ///< Number of unpaid leave days.
 		const int mTax = 28; ///< Percent deductions from salary.
 	public:
 		/**
 		  * Constructor
+		  * Initializes an Prof object and sets data members
 		  * @param[in] _mFName 		Employee first name
 		  * @param[in] _mGName		Employee second name
 		  * @param[in] _mIRD			Employee IRD number
@@ -175,26 +177,26 @@ class Prof : public SalaryEmp {
 		Prof(const string &_nFName = "NO_PR", const string &_mGName = "NO_PR", 
 		const string &_mIRD = "PR00-0000-000", double _mAPay = 0.0, int _mDaysLeave = 0);
 		/**
-		  * mDaysLeave Accessor
-		  * Returns mDaysLeave
+		  * Returns mDaysLeave 
+		  * @return mDaysLeave
 		  */
 		int getMDaysLeave() const;
 		/**
-		  * mDaysLeave Mutator
-		  * Sets mDaysLeave
+		  * Mutates mDaysLeave
+		  * @param[in] _mDaysLeave Assigns mDaysLeave with the value _mDaysLeave
 		  */
-		void setMDaysLeave(int mDaysLeave);
+		void setMDaysLeave(int _mDaysLeave);
 		/**
-		  * Overriden Member Function: print
-		  * @param[in] _cout	 The cout stream that, when returned, displays the IRD number, first and last 
-		  * of the employee
+		  * Displays the mIRD, mFName, mGName and monthly net pay for the Employee object
+		  * @param[in] _cout	 The stream used to display the values
 		  */
-		virtual void print(ostream &) override;
+		void print(ostream &);
 		/**
-		  * Overriden Member Function: getNetMonthlyPay
-		  * Returns employee monthly income
+		  * Calculates the monthly net wages for the Prof object less leave days
+		  * and tax deducted
+		  * @return total monthly net wages
 		  */
-		virtual double getNetMonthlyPay() override;
+		double getNetMonthlyPay();
 };
 //---------------------------------------------------------------
 Prof::Prof(const string &_nFName, const string &_mGName, 
@@ -210,30 +212,31 @@ void Prof::setMDaysLeave(int _mDaysLeave) {
 }
 //---------------------------------------------------------------
 void Prof::print(ostream &_cout) {
-	_cout << setw(10) << Employee::getMIRD();
-	_cout << "\t" << Employee::getMFName();
-	_cout << "\t\t" << Employee::getMGName();
-	_cout << "\t\t$" << getNetMonthlyPay();
+	_cout << setw(20) << left << getMIRD();
+	_cout << setw(15) << left << getMFName();
+	_cout << setw(20) << left << getMGName();
+	_cout << "$" << setw(20) << left << getNetMonthlyPay();	
 }
 //---------------------------------------------------------------
 ///	Uncomplete ///
 double Prof::getNetMonthlyPay(){
-	double totalLeaveDeductions = (SalaryEmp::getMAPay() / 365.0) * getMDaysLeave();	
-	double totalTaxDeductions = (SalaryEmp::getMAPay() - totalLeaveDeductions) * (mTax / 100.0);
-	return (SalaryEmp::getMAPay() - totalTaxDeductions) / 12.0;
+	double totalMonthlyLeaveDeductions = (SalaryEmp::getMAPay() / 365.0) * getMDaysLeave();	
+	double monthlySalaryLessLeave = (SalaryEmp::getMAPay() / 12) - totalMonthlyLeaveDeductions;
+	return monthlySalaryLessLeave - (monthlySalaryLessLeave * (mTax / 100.0));	
 }
 //---------------------------------------------------------------
 //=================================================================================
 /**
  * A class representing an Administrator
  */
-class Admin : public SalaryEmp{
+class Admin final : public SalaryEmp{
 	private:
 		string mJob; ///< Job title.
 		const int mTax = 25; ///< Percent deductions from salary.
 	public:
 		/**
 		  * Constructor
+		  * Initializes an Admin object and sets data members
 		  * @param[in] _mFName 		Employee first name
 		  * @param[in] _mGName		Employee second name
 		  * @param[in] _mIRD			Employee IRD number
@@ -243,26 +246,25 @@ class Admin : public SalaryEmp{
 		Admin(const string &_nFName = "NO_ADM", const string &_mGName = "NO_ADM", 
 		const string &_mIRD = "ADM00-0000-000", double _mAPay = 0, const string &_mJob = "NO_ADM");
 		/**
-		  * mJob Accessor
-		  * Returns mJob
+		  * Returns mJob 
+		  * @return mJob
 		  */
 		const string &getMJob() const;
 		/**
-		  * mJob Mutator
-		  * Sets mJob
+		  * Mutates mJob
+		  * @param[in] _mJob Assigns mJob with the value _mJob
 		  */
 		void setMJob(const string &_mJob);
 		/**
-		  * Overriden Member Function: print
-		  * @param[in] _cout	 The cout stream that, when returned, displays the IRD number, first and last 
-		  * of the employee
+		  * Displays the mIRD, mFName and mGName data members for the Admin object
+		  * @param[in] _cout	 The stream used to display the values
 		  */
-		virtual void print(ostream &_cout) override;
+		void print(ostream &_cout);
 		/**
-		  * Overriden Member Function: getNetMonthlyPay
-		  * Returns employee monthly income
+		  * Calculates the monthly net wages for the Admin object less tax rate deductions
+		  * @return total monthly net wages
 		  */
-		virtual double getNetMonthlyPay() override;
+		double getNetMonthlyPay();
 
 };
 //---------------------------------------------------------------
@@ -278,10 +280,10 @@ void Admin::setMJob(const string &_mJob) {
 }
 //---------------------------------------------------------------
 void Admin::print(ostream &_cout) {
-	_cout << setw(10) << Employee::getMIRD();
-	_cout << "\t" << Employee::getMFName();
-	_cout << "\t\t" << Employee::getMGName();
-	_cout << "\t\t$" << getNetMonthlyPay();
+	_cout << setw(20) << left << getMIRD();
+	_cout << setw(15) << left << getMFName();
+	_cout << setw(20) << left << getMGName();
+	_cout << "$" << setw(20) << left << getNetMonthlyPay();
 }
 //---------------------------------------------------------------
 double Admin::getNetMonthlyPay() {
@@ -293,7 +295,7 @@ double Admin::getNetMonthlyPay() {
 /**
  * A class representing an Administrator
  */
-class TEmp : public Employee {
+class TEmp final : public Employee {
 	private:
 		string mID; ///< Student ID number.
 		int mHWorked; ///< Number of hours worked per month.
@@ -302,6 +304,7 @@ class TEmp : public Employee {
 	public:
 		/**
 		  * Constructor
+		  * Initializes an TEmp object and sets data members
 		  * @param[in] _mFName 		Employee first name
 		  * @param[in] _mGName		Employee second name
 		  * @param[in] _mIRD			Employee IRD number
@@ -312,46 +315,46 @@ class TEmp : public Employee {
 		TEmp(const string &_nFName = "NO_TA", const string &_mGName = "NO_TA", 
 		const string &_mIRD = "TA00-0000-000", const string &_mID = "NO_TA", int _mHWorked = 0, double _mHPay = 0);
 		/**
-		  * mID Accessor
-		  * Returns mID
+		  * Returns mID 
+		  * @return mID
 		  */
 		const string &getMID() const;
 		/**
-		  * mHWorked Accessor
-		  * Returns mHWorked
+		  * Returns mHWorked 
+		  * @return mHWorked
 		  */
 		int getMHWorked() const;
 		/**
-		  * mHPay Accessor
-		  * Returns mHPay
+		  * Returns mHPay 
+		  * @return mHPay
 		  */
 		double getMHPay() const;
 		/**
-		  * mID Mutator
-		  * Sets mID
+		  * Mutates mID
+		  * @param[in] _mID Assigns mID with the value _mID
 		  */
 		void setMID(const string &_mID);
 		/**
-		  * mHWorked Mutator
-		  * Sets mHWorked
+		  * Mutates mHWorked
+		  * @param[in] _mHWorked Assigns mHWorked with the value _mHWorked
 		  */
 		void setMHWorked(int _mHWorked);
 		/**
-		  * mHPay Mutator
-		  * Sets mHPay
+		  * Mutates mHPay
+		  * @param[in] _mHPay Assigns mHPay with the value _mHPay
 		  */
 		void setMHPay(double _mHPay);
 		/**
-		  * Overriden Member Function: print
-		  * @param[in] _cout	 The cout stream that, when returned, displays the IRD number, first and last 
-		  * of the employee
+		  * Displays the mIRD, mFName and mGName data members for the TEmp object
+		  * @param[in] _cout	 The stream used to display the values
 		  */
-		virtual void print(ostream &_cout) override;
+		void print(ostream &_cout);
 		/**
-		  * Overriden Member Function: getNetMonthlyPay
-		  * Returns employee monthly income
+		  * Calculates the monthly net wages by multiplying mHWorked by mHPay
+		  * less tax detuctions.
+		  * @return total monthly net wages
 		  */
-		virtual double getNetMonthlyPay() override;
+		double getNetMonthlyPay();
 };
 //---------------------------------------------------------------
 TEmp::TEmp(const string &_nFName, const string &_mGName,
@@ -383,10 +386,10 @@ double TEmp::getMHPay() const {
 }
 //---------------------------------------------------------------
 void TEmp::print(ostream &_cout) {
-	_cout << setw(10) << Employee::getMIRD();
-	_cout << "\t" << Employee::getMFName();
-	_cout << "\t\t" << Employee::getMGName();
-	_cout << "\t\t$" << getNetMonthlyPay();
+	_cout << setw(20) << left << getMIRD();
+	_cout << setw(15) << left << getMFName();
+	_cout << setw(20) << left << getMGName();
+	_cout << "$" << setw(20) << left << getNetMonthlyPay();
 }
 //---------------------------------------------------------------
 double TEmp::getNetMonthlyPay() {
@@ -395,55 +398,3 @@ double TEmp::getNetMonthlyPay() {
 	return totalWage - deductableTaxAmount;
 }
 //---------------------------------------------------------------
-
-
-
-
-int main() {
-	const int SIZE = 10;
-	info();
-	Employee* emps[SIZE];
-	emps[0] = new TEmp();
-	emps[1] = new TEmp("Wuz", "Chris", "22-267-8012", "12323405", 6, 25);
-	emps[2] = new TEmp("Jackson", "Priscilla", "63-232-1456", "08001896", 12, 23.50);
-	emps[3] = new Admin();
-	emps[4] = new Admin("Bush", "GeorgeJr", "06-1342-0456", 59099.76, "Librarian");
-	emps[5] = new Admin("Clever", "Bob", "22-267-812", 79345.00, "Bussines Manger");
-	emps[6] = new Prof();
-	emps[7] = new Prof("Steiger", "Ludwig", "65-102-456", 79345.00, 3);
-	emps[8] = new Prof("Flop", "Boby", "11-178-120", 69009.00, 0);
-	emps[9] = new Prof("Daisy", "Ana", "34-567-812", 67099.00, 3);
-	double totalToPay=0.0;
-	for (int i = 0; i < SIZE; ++i) {
-		totalToPay += emps[i]->getNetMonthlyPay();
-		emps[i]->print(cout);
-		cout << endl;
-	}
-	cout << "\nTotal wages this month: $" << setprecision(10) << totalToPay;
-	cout << "\nThank you for using out program! Bye!" << endl;
-	return 0;
-}
-	
-void info() {
-	cout << "159.234 Assignment 2P1" << endl;
-	cout << "Leonard Phillips   15232331" << endl;
-	cout << endl;
-}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
