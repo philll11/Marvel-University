@@ -28,10 +28,5 @@ int main() {
 	return 0;
 }
 	
-void info() {
-	cout << "159.234 Assignment 2P1" << endl;
-	cout << "Leonard Phillips   15232331" << endl;
-	cout << endl;
-}
-	
+
 	
