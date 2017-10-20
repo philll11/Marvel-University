@@ -163,7 +163,7 @@ void SalaryEmp::setMAPay(double _mAPay) {
 class Prof final : public SalaryEmp {
 	private:
 		int mDaysLeave; ///< Number of unpaid leave days.
-		const int mTax = 28; ///< Percent deductions from salary.
+		const int mTax; ///< Percent deductions from salary.
 	public:
 		/**
 		  * Constructor
@@ -201,7 +201,7 @@ class Prof final : public SalaryEmp {
 //---------------------------------------------------------------
 Prof::Prof(const string &_nFName, const string &_mGName, 
 	const string &_mIRD, double _mAPay, int _mDaysLeave)
-	: SalaryEmp(_nFName, _mGName, _mIRD, _mAPay), mDaysLeave(_mDaysLeave) {}
+	: SalaryEmp(_nFName, _mGName, _mIRD, _mAPay), mDaysLeave(_mDaysLeave), mTax(28) {}
 //---------------------------------------------------------------
 int Prof::getMDaysLeave() const {
 	 return mDaysLeave;
@@ -232,7 +232,7 @@ double Prof::getNetMonthlyPay(){
 class Admin final : public SalaryEmp{
 	private:
 		string mJob; ///< Job title.
-		const int mTax = 25; ///< Percent deductions from salary.
+		const int mTax; ///< Percent deductions from salary.
 	public:
 		/**
 		  * Constructor
@@ -269,7 +269,7 @@ class Admin final : public SalaryEmp{
 };
 //---------------------------------------------------------------
 Admin::Admin(const string &_nFName, const string &_mGName, const string &_mIRD,
-	double _mAPay, const string &_mJob) : SalaryEmp(_nFName, _mGName, _mIRD, _mAPay), mJob(_mJob) {}
+	double _mAPay, const string &_mJob) : SalaryEmp(_nFName, _mGName, _mIRD, _mAPay), mJob(_mJob), mTax(25) {}
 //---------------------------------------------------------------
 const string &Admin::getMJob() const {
     return mJob;
@@ -300,7 +300,7 @@ class TEmp final : public Employee {
 		string mID; ///< Student ID number.
 		int mHWorked; ///< Number of hours worked per month.
 		double mHPay; ///< Hourly rate the student is paid.
-		const int mTax = 20; ///< Percent deductions from salary.
+		const int mTax; ///< Percent deductions from salary.
 	public:
 		/**
 		  * Constructor
@@ -359,7 +359,7 @@ class TEmp final : public Employee {
 //---------------------------------------------------------------
 TEmp::TEmp(const string &_nFName, const string &_mGName,
 	const string &_mIRD, const string &_mID, int _mHWorked, double _mHPay) 
-	: Employee(_nFName, _mGName, _mIRD), mID(_mID), mHWorked(_mHWorked), mHPay(_mHPay) {}
+	: Employee(_nFName, _mGName, _mIRD), mID(_mID), mHWorked(_mHWorked), mHPay(_mHPay), mTax(20) {}
 //---------------------------------------------------------------
 void TEmp::setMID(const string &_mID) {
     TEmp::mID = _mID;
