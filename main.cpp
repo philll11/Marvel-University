@@ -5,7 +5,6 @@ using namespace std;
 
 int main() {
 	const int SIZE = 10;
-	info();
 	Employee* emps[SIZE];
 	emps[0] = new TEmp();
 	emps[1] = new TEmp("Wuz", "Chris", "22-267-8012", "12323405", 6, 25);
