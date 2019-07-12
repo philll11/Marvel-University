@@ -1,11 +1,3 @@
-/**
-  * Leonard Phillips
-  * 15232331
-  * Assignment 1 Part 2
-  * This is a Marvel University. It uses classes and inheritance to simulate a University
-  * with multiple staff roles.
-  */
-  
 #include <iostream>
 #include <iomanip>
 
@@ -398,10 +390,4 @@ double TEmp::getNetMonthlyPay() {
 	return totalWage - deductableTaxAmount;
 }
 //---------------------------------------------------------------
-
-void info() {
-	cout << "159.234 Assignment 2P1" << endl;
-	cout << "Leonard Phillips   15232331" << endl;
-	cout << endl;
-}
 	
